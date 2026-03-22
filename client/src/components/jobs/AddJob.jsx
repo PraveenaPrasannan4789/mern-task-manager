@@ -1,34 +1,34 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import AddJobForm from "./AddJobForm"; // your current AddJob component
 
-function AddJob({ addJobFn }) {
-  const [jobName, setJobName] = useState("");
-  const jobRef = useRef(null);
+function JobManager() {
+  const [showForm, setShowForm] = useState(false);
+  const [jobs, setJobs] = useState([]);
 
-  useEffect(() => {
-    jobRef.current.focus();
-  }, []);
-  
-  const handleSubmit = (e) => {
-    e.preventDefault(); //// stops the page from reloading
-    console.log("jobname", jobName.trim());
-    if (jobName.trim()=== "") {
-      return;
-    }
-    addJobFn(jobName);
-    setJobName("");
+  const addJobFn = (jobName) => {
+    setJobs([...jobs, jobName]);
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        onChange={(e) => setJobName(e.target.value)}
-        value={jobName}
-        placeholder="Add a new Job"
-        ref={jobRef}
-      ></input>
-      <button type="submit">Add Job</button>
-    </form>
+    <div>
+      <h1>Job Manager</h1>
+
+      {/* Add Job button */}
+      {!showForm && (
+        <button onClick={() => setShowForm(true)}>Add Job</button>
+      )}
+
+      {/* Show form only if showForm is true */}
+      {showForm && <AddJobForm addJobFn={addJobFn} />}
+
+      {/* Job List */}
+      <ul>
+        {jobs.map((job, index) => (
+          <li key={index}>{job}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
-export default AddJob;
+export default JobManager;
