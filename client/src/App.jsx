@@ -6,16 +6,16 @@ function App() {
   const onLogin = (data) => {
     console.log("Login Data:", data);
   };
-   const onSignin = (data) => {
+   const onSignup = (data) => {
     console.log("Login Data:", data);
   };
 
   return (
     <div>
-      {/* <h1>My Job list</h1> */}
-    {/* <JobList /> */}
+      <h1>My Job list</h1> 
+     <JobList />
       <UserLogin onLogin={onLogin} />
-      {/* <SignupForm onSignin={onSignin}/> */}
+      <SignupForm onSignup={onSignup}/>
     </div>
   );
 }
