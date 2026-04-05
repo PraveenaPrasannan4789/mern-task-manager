@@ -29,4 +29,32 @@ const getJob = async (req, res, next) => {
   }
 };
 
-module.exports = { addJob, getJob };
+const updateJob = async (req, res, next) => {
+  try {
+    console.log("here", req.params.id, req.user.userId);
+    const updateData = await Job.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.userId },
+      { ...req.body },
+      { new: true },
+    );
+    res.status(200).json({ success: true, data: updateData });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const deleteJob = async (req, res, next) => {
+  try {
+    const deleteOp = await Job.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.user.userId,
+    });
+    res
+      .status(200)
+      .json({ status: true, message: "successfully deleted", data: deleteOp });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { addJob, getJob, updateJob, deleteJob };
