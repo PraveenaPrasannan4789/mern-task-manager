@@ -9,6 +9,7 @@ const {
   getJob,
   updateJob,
   deleteJob,
+  filterJobs,
 } = require("../controllers/jobController");
 
 router.post(
@@ -24,4 +25,5 @@ router.post(
 router.get("/", auth, getJob);
 router.put("/:id", auth, updateJob);
 router.delete("/:id", auth, deleteJob);
+router.get("/filter", auth, filterJobs);
 module.exports = router;

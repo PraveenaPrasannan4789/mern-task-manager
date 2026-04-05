@@ -57,4 +57,18 @@ const deleteJob = async (req, res, next) => {
   }
 };
 
-module.exports = { addJob, getJob, updateJob, deleteJob };
+const filterJobs = async (req, res, next) => {
+  try {
+    const { jobName, status } = req.query;
+    const filterCriteria = { userId: req.user.userId };
+    if (status) filterCriteria.status = status;
+    if (jobName) filterCriteria.jobName = jobName;
+    console.log(filterCriteria);
+    const records = await Job.find(filterCriteria);
+    res.status(200).json({ success: true, data: records });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { addJob, getJob, updateJob, deleteJob, filterJobs };
