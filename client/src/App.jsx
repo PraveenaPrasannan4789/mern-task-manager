@@ -8,9 +8,10 @@ import { useState } from "react";
 import UserLogin from "./components/auth/Login";
 import SignupForm from "./components/auth/Signup";
 import DashBoard from "./pages/Dashboard";
+import PrivateRoute from "./components/auth/PrivateRoute";
 
 function App() {
-  const[isUserLoggedIn,setIsUserLoggedIn]= useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const onLogin = (data) => {
     setIsUserLoggedIn(true);
     console.log("Login Data:", data);
@@ -18,10 +19,10 @@ function App() {
   const onSignup = (data) => {
     console.log("Login Data:", data);
   };
-  const handlelogOut=()=>{
-    console.log('here')
-setIsUserLoggedIn(false)
-  }
+  const handlelogOut = () => {
+    console.log("here");
+    setIsUserLoggedIn(false);
+  };
 
   return (
     <div>
@@ -38,7 +39,20 @@ setIsUserLoggedIn(false)
               )
             }
           ></Route>
-          <Route path="/dashboard" element={isUserLoggedIn? (<DashBoard handlelogOut={handlelogOut} />):(<Navigate to ="/"/>)}></Route>
+          <Route
+            path="/dashboard"
+            element={
+              isUserLoggedIn ? (
+                <PrivateRoute>
+                  {/* This ensures only users with a valid token can see the
+                  dashboard. */}
+                  <DashBoard handlelogOut={handlelogOut} />
+                </PrivateRoute>
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          ></Route>
           <Route
             path="/signUp"
             element={<SignupForm onSignup={onSignup} />}

@@ -37,7 +37,7 @@ const login = async (req, res, next) => {
       { expiresIn: "1h" },
     );
 
-    res.json({ token });
+    res.json({ success: true, token: token });
   } catch (err) {
     next(err);
   }
