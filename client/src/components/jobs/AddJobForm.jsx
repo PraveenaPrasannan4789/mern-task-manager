@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddJobForm = ({ onAddJob }) => {
+const AddJobForm = ({ setShowForm }) => {
   const [form, setForm] = useState({
     title: "",
     company: "",
@@ -8,9 +8,36 @@ const AddJobForm = ({ onAddJob }) => {
     status: "",
   });
   const [errors, setErrors] = useState({});
+  const API_URI = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const onAddJob = async (form) => {
+    try {
+      const data = await fetch(`${API_URI}/jobs/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          jobName: form.title,
+          companyName: form.company,
+          status: form.status,
+        }),
+      });
+      const res = await data.json();
+      if (res.status) {
+        setShowForm(false);
+        alert("job added successfully");
+      } else {
+        setErrors({ general: res.message || "unable to add jobs" });
+      }
+    } catch (err) {
+      setErrors({ general: err || "Network Error" });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -19,13 +46,14 @@ const AddJobForm = ({ onAddJob }) => {
 
     if (!form.title) validationErrors.title = "Job title is required";
     if (!form.company) validationErrors.company = "Company name is required";
-    if (!form.datePosted) validationErrors.datePosted = "Date is required";
-    else if (!/^\d{4}-\d{2}-\d{2}$/.test(form.datePosted))
-      validationErrors.datePosted = "Date must be YYYY-MM-DD";
+    // if (!form.datePosted) validationErrors.datePosted = "Date is required";
+    //else if (!/^\d{4}-\d{2}-\d{2}$/.test(form.datePosted))
+    // validationErrors.datePosted = "Date must be YYYY-MM-DD";
 
     if (!form.status) validationErrors.status = "Status is required";
 
     if (Object.keys(validationErrors).length > 0) {
+      console.log("hhh", validationErrors);
       setErrors(validationErrors);
       return;
     }
@@ -67,6 +95,7 @@ const AddJobForm = ({ onAddJob }) => {
       </div>
 
       <button type="submit">Add Job</button>
+      {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
     </form>
   );
 };

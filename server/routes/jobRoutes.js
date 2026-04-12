@@ -5,6 +5,7 @@ const { body } = require("express-validator");
 
 const auth = require("../middleware/auth");
 const role = require("../middleware/role");
+const logger = require("../middleware/logger");
 const {
   addJob,
   getJob,
