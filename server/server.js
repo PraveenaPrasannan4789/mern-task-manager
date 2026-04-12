@@ -3,6 +3,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const { errorHandler } = require("./utils/errorHandler");
 const authRoute = require("./routes/authRoutes");

@@ -30,44 +30,53 @@ function JobList() {
     fetchData();
   }, []); // empty dependency → runs only once
 
-  const deleteJob = (idx) => {
-    setJobList(
-      jobList.filter((_, index) => {
-        //_ is a placeholder for the element when you don’t need it.
-        return index != idx;
-      }),
-    );
+  const deleteJob = async (idx) => {
+    try {
+      const data = await fetch(`${API_URI}/jobs/${idx}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      const resData = await data.json();
+      if (resData.success) {
+        setJobList(
+          jobList.filter((job) => {
+            //_ is a placeholder for the element when you don’t need it.
+            return job._id != idx;
+          }),
+        );
+      } else {
+        setErrors({ general: "Unable to delete" });
+      }
+    } catch (err) {
+      setErrors({ general: err || "Network Error" });
+    }
   };
-
-  const addJob = useCallback((newJob) => {
-    console.log("job lidt", jobList, newJob);
-    setJobList((prev) => [...prev, newJob]);
-    console.log("job lidt", jobList, newJob);
-
-    // setState always expects a single value, not multiple arguments.
-
-    // For arrays, you must wrap wyith [ ]:
-  }, []);
 
   return (
     <div>
       <h2>Job List</h2>
       {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
       <ul>
-        {jobList.map((job, idx) => (
-          <li key={idx}>
-            {job.jobName} at {job.companyName} -{job.status}{" "}
-            <button
-              onClick={() => {
-                deleteJob(idx); //You cannot do {deleteTask(index)} inside JSX directly, because it would call the function immediately when rendering, instead of on click.
-              }}
-            >
-              delete
-            </button>
-          </li>
-        ))}
+        {jobList.length > 0 ? (
+          jobList.map((job, idx) => (
+            <li key={idx}>
+              {job.jobName} at {job.companyName} -{job.status}{" "}
+              <button
+                onClick={() => {
+                  deleteJob(job._id); //You cannot do {deleteTask(index)} inside JSX directly, because it would call the function immediately when rendering, instead of on click.
+                }}
+              >
+                delete
+              </button>
+            </li>
+          ))
+        ) : (
+          <p>No jobs were added</p>
+        )}
       </ul>
-      <AddJob addJobFn={addJob} />
+      <div>
+        <AddJob />
+      </div>
     </div>
   );
 }
