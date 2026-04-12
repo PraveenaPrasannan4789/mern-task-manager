@@ -94,7 +94,9 @@ const Signup = ({ onSignup }) => {
         {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
       </form>
       <div>
-        <button onClick={handlelogOut}>Logout</button>
+        <button type="button" onClick={() => handlelogOut()}>
+          Logout
+        </button>
       </div>
     </>
   );
