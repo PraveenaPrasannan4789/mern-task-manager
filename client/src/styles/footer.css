@@ -1,0 +1,13 @@
+.footer {
+  background: linear-gradient(45deg, #3e7b53, transparent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 11px;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+.nav-links {
+}

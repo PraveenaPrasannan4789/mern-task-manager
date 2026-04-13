@@ -1,0 +1,47 @@
+.main-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.introduction {
+  letter-spacing: 2px;
+  color: #2e2e40;
+}
+
+.sub-intro {
+  color: #2e597e;
+  letter-spacing: 2px;
+}
+
+.card {
+  width: 200px;
+  align-items: center;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fcfcfc;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 15px;
+}
+
+.user-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.card p {
+  margin-top: 0px;
+  color: #2e597e;
+  font-size: 14px;
+}
+
+.card h4 {
+  margin: 5px 0 0;
+}
+
+.card span {
+  font-size: 12px;
+  color: gray;
+}
