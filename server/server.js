@@ -13,9 +13,14 @@ const jobRoute = require("./routes/jobRoutes");
 const app = express();
 
 // Middleware
-app.use(cors());
 app.use(helmet());
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "https://hire-guard-mu.vercel.app",
+  }),
+);
 
 mongoose
   .connect(process.env.MONGO_URI)
