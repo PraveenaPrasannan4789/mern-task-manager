@@ -10,7 +10,7 @@ function JobList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(`${API_URI}/jobs`, {
+        const res = await fetch(`${API_URI}/api/jobs`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,7 +32,7 @@ function JobList() {
 
   const deleteJob = async (idx) => {
     try {
-      const data = await fetch(`${API_URI}/jobs/${idx}`, {
+      const data = await fetch(`${API_URI}/api/jobs/${idx}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });

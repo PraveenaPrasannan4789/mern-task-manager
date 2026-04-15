@@ -16,9 +16,12 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 
+const allowedOrigin = process.env.CLIENT_URL;
+
 app.use(
   cors({
-    origin: "https://hire-guard-mu.vercel.app",
+    origin: allowedOrigin,
+    credentials: true,
   }),
 );
 

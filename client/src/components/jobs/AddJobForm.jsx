@@ -16,7 +16,7 @@ const AddJobForm = ({ setShowForm }) => {
 
   const onAddJob = async (form) => {
     try {
-      const data = await fetch(`${API_URI}/jobs/add`, {
+      const data = await fetch(`${API_URI}/api/jobs/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

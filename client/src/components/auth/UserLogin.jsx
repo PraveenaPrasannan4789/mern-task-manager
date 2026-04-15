@@ -27,7 +27,7 @@ const UserLogin = ({ onLogin }) => {
     }
 
     try {
-      const res = await fetch(`${API_URI}/auth/login`, {
+      const res = await fetch(`${API_URI}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
