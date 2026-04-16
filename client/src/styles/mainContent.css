@@ -1,47 +1,108 @@
 .main-section {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.introduction {
-  letter-spacing: 2px;
-  color: #2e2e40;
-}
-
-.sub-intro {
-  color: #2e597e;
-  letter-spacing: 2px;
-}
-
-.card {
-  width: 200px;
+  display: flex;
+  height: 100vh;
   align-items: center;
-  margin: 40px auto;
-  padding: 20px;
-  background: #fcfcfc;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  padding: 40px 80px;
+  gap: 40px;
+}
+
+/* LEFT SIDE */
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.main-heading {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #111;
+  max-width: 500px;
+}
+
+.main-paragraph {
+  font-size: 18px;
+  color: #555;
+  max-width: 450px;
+}
+
+/* BUTTONS */
+.btn-group {
   display: flex;
   gap: 15px;
 }
 
-.user-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.primary-btn {
+  padding: 10px 18px;
+  background: #0f766e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.card p {
-  margin-top: 0px;
-  color: #2e597e;
-  font-size: 14px;
+.secondary-btn {
+  padding: 10px 18px;
+  background: transparent;
+  border: 1px solid #0f766e;
+  color: #0f766e;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.card h4 {
-  margin: 5px 0 0;
+/* RIGHT SIDE */
+.right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.card span {
-  font-size: 12px;
-  color: gray;
+.card {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .main-section {
+    flex-direction: column;
+    height: auto;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .left {
+    align-items: center;
+  }
+
+  .main-heading {
+    font-size: 32px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+  }
 }
