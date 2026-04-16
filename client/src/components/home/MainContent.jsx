@@ -1,7 +1,11 @@
 import "../../styles/mainContent.css";
+import ManageJob from "./manageJob";
 const MainContent = () => {
   return (
     <>
+      <section>
+        <ManageJob />
+      </section>
       <section className="main-section">
         <h1 className="introduction">
           Manage your job applications and track <br /> every stage of your
