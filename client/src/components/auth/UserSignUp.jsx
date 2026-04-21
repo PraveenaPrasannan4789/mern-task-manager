@@ -39,7 +39,7 @@ const Signup = ({ onSignup }) => {
       const data = await res.json();
       if (data.success) {
         onSignup(form);
-        navigate("/");
+        navigate("/dashboard");
       } else {
         setErrors({ general: data.message || "SignUp failed" });
       }
