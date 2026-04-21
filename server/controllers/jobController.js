@@ -23,7 +23,17 @@ const addJob = async (req, res, next) => {
 const getJob = async (req, res, next) => {
   try {
     const jobs = await Job.find({ userId: req.user.userId });
-    res.status(200).json({ success: true, data: jobs, message: "data found" });
+    if (jobs.length === 0) {
+      return res.status(200).json({
+        success: true,
+        data: [],
+        message: "No jobs found",
+      });
+    } else {
+      res
+        .status(200)
+        .json({ success: true, data: jobs, message: "data found" });
+    }
   } catch (err) {
     next(err);
   }

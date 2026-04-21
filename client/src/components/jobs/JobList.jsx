@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddJob from "./AddJob";
 import { useEffect, useCallback } from "react";
+import "../../styles/job.css";
 
 function JobList() {
   const [jobList, setJobList] = useState([]);
@@ -8,74 +9,89 @@ function JobList() {
   const API_URI = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch(`${API_URI}/api/jobs`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        const data = await res.json();
-        if (data.success) {
-          const Jobs = data.data;
-          setJobList(Jobs);
-        } else {
-          setErrors({ general: data.message || "unable to get jobs" });
-        }
-      } catch (err) {
-        setErrors({ general: err || "Network Error" });
-      }
-    }
     fetchData();
   }, []); // empty dependency → runs only once
 
-  const deleteJob = async (idx) => {
+  async function fetchData() {
     try {
-      const data = await fetch(`${API_URI}/api/jobs/${idx}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      const res = await fetch(`${API_URI}/api/jobs`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
-      const resData = await data.json();
-      if (resData.success) {
-        setJobList(
-          jobList.filter((job) => {
-            //_ is a placeholder for the element when you don’t need it.
-            return job._id != idx;
-          }),
-        );
+      const data = await res.json();
+      if (data.success) {
+        const Jobs = data.data;
+        setJobList(Jobs);
       } else {
-        setErrors({ general: "Unable to delete" });
+        setErrors({ general: data.message || "unable to get jobs" });
       }
     } catch (err) {
       setErrors({ general: err || "Network Error" });
     }
+  }
+
+  const deleteJob = async (id) => {
+    try {
+      const res = await fetch(`${API_URI}/api/jobs/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      const data = await res.json();
+      console.log("data", data);
+
+      if (data.status) {
+        // Option 1 (fast UI update)
+        setJobList((prev) => prev.filter((job) => job._id !== id));
+
+        // Option 2 (safe - sync with backend)
+        fetchData();
+      } else {
+        setErrors({ general: "Unable to delete" });
+      }
+    } catch (err) {
+      setErrors({ general: "Network Error" });
+    }
   };
 
   return (
-    <div>
-      <h2>Job List</h2>
-      {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
-      <ul>
+    <div className="job-container">
+      <h2 className="title">📌 Your Job Applications</h2>
+
+      {errors.general && <p className="error">{errors.general}</p>}
+
+      <div className="job-grid">
         {jobList.length > 0 ? (
-          jobList.map((job, idx) => (
-            <li key={idx}>
-              {job.jobName} at {job.companyName} -{job.status}{" "}
-              <button
-                onClick={() => {
-                  deleteJob(job._id); //You cannot do {deleteTask(index)} inside JSX directly, because it would call the function immediately when rendering, instead of on click.
-                }}
-              >
-                delete
-              </button>
-            </li>
+          jobList.map((job) => (
+            <div className="job-card" key={job._id}>
+              <div className="job-header">
+                <h3>{job.jobName}</h3>
+                <span className={`status ${job.status}`}>{job.status}</span>
+              </div>
+
+              <p className="company">🏢 {job.companyName}</p>
+
+              <div className="job-actions">
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteJob(job._id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           ))
         ) : (
-          <p>No jobs were added</p>
+          <p className="empty">No jobs were added</p>
         )}
-      </ul>
-      <div>
-        <AddJob />
+      </div>
+
+      <div className="add-section">
+        <AddJob fetchData={fetchData} />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddJobForm = ({ setShowForm }) => {
+const AddJobForm = ({ setShowForm, fetchData }) => {
   const [form, setForm] = useState({
     title: "",
     company: "",
@@ -31,6 +31,7 @@ const AddJobForm = ({ setShowForm }) => {
       const res = await data.json();
       if (res.status) {
         setShowForm(false);
+        fetchData();
         alert("job added successfully");
       } else {
         setErrors({ general: res.message || "unable to add jobs" });

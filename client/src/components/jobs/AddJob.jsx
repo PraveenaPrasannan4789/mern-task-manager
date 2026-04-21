@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddJobForm from "./AddJobForm"; // your current AddJob component
 
-function JobManager() {
+function JobManager({ fetchData }) {
   const [showForm, setShowForm] = useState(false);
 
   return (
@@ -10,7 +10,9 @@ function JobManager() {
       {!showForm && <button onClick={() => setShowForm(true)}>Add Job</button>}
 
       {/* Show form only if showForm is true */}
-      {showForm && <AddJobForm setShowForm={setShowForm} />}
+      {showForm && (
+        <AddJobForm setShowForm={setShowForm} fetchData={fetchData} />
+      )}
     </div>
   );
 }

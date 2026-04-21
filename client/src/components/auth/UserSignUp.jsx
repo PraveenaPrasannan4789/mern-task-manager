@@ -93,9 +93,9 @@ const Signup = ({ onSignup }) => {
         <button type="submit">SignUp</button>
         {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
       </form>
-      <div>
+      <div style={{ margin: "20px" }}>
         <button type="button" onClick={() => handlelogOut()}>
-          Logout
+          Go Back
         </button>
       </div>
     </>

@@ -5,8 +5,17 @@ const Login = ({ onSignup }) => {
   return (
     <div className="login">
       <div className="left">
-        <h1>Hello 👋</h1>
-        <p>Sign up to continue to your dashboard</p>
+        <h1>Create your account 🚀</h1>
+
+        <p>
+          Join our platform to manage tasks, track progress, and collaborate
+          efficiently with your team.
+        </p>
+
+        <div className="highlight">
+          💡 Tip: Use a strong password with at least 6 characters for better
+          security.
+        </div>
       </div>
       <div className="right">
         <div className="right-box">

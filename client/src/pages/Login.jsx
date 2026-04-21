@@ -6,7 +6,16 @@ const Login = ({ onLogin }) => {
     <div className="login">
       <div className="left">
         <h1>Welcome Back 👋</h1>
-        <p>Sign in to continue to your dashboard</p>
+
+        <p>
+          Great to see you again. Sign in to access your dashboard, manage
+          tasks, and continue where you left off.
+        </p>
+
+        <div className="highlight">
+          🔒 Your data is secure and encrypted with industry-standard
+          protection.
+        </div>
       </div>
       <div className="right">
         <div className="right-box">

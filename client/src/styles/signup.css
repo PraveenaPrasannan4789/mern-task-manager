@@ -1,28 +1,116 @@
+/* Page Layout */
 .login {
   display: flex;
   width: 100%;
   height: 100vh;
+  font-family: "Segoe UI", sans-serif;
 }
 
+/* LEFT PANEL (Branding) */
 .left {
   flex: 1;
+  /* background: linear-gradient(135deg, #0f172a, #1e293b); */
+  color: white;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  padding: 60px;
 }
 
+.left h1 {
+  font-size: 44px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.left p {
+  font-size: 18px;
+  opacity: 0.85;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+/* Small highlight box */
+.left .highlight {
+  margin-top: 25px;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #6366f1;
+  border-radius: 8px;
+  font-size: 14px;
+  max-width: 420px;
+}
+
+/* RIGHT PANEL */
 .right {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #f4f6f9;
 }
 
+/* FORM CARD */
 .right-box {
   background: white;
   padding: 40px;
   border-radius: 16px;
-  width: 80%;
-  max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Labels */
+label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Inputs */
+input {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* Button */
+button {
+  background: #202040;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #191658;
+}
+
+/* Error */
+p {
+  font-size: 12px;
+  margin: 4px 0 0;
+}
+
+p[style*="color: red"] {
+  color: #ef4444 !important;
 }
